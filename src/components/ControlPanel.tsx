@@ -1,6 +1,12 @@
 import type { RingType, SimulationConfig } from '../types/lkpd'
 
-interface Props { config: SimulationConfig; onChange: (config: SimulationConfig) => void; running: boolean; onToggle: () => void; onReset: () => void }
+interface Props {
+  config: SimulationConfig
+  onChange: (config: SimulationConfig) => void
+  running: boolean
+  onToggle: () => void
+  onReset: () => void
+}
 
 const sliders = [
   { key: 'turns' as const, label: 'Jumlah lilitan', symbol: 'N', min: 20, max: 500, step: 10, unit: 'lilitan' },
@@ -15,7 +21,7 @@ export default function ControlPanel({ config, onChange, running, onToggle, onRe
   return (
     <section className="card controls-card">
       <div className="section-heading">
-        <div><span class="eyebrow">LABORATORIUM VIRTUAL</span><h2>Atur parameter</h2></div>
+        <div><span className="eyebrow">LABORATORIUM VIRTUAL</span><h2>Atur parameter</h2></div>
         <button className={`run-button ${running ? 'is-running' : ''}`} onClick={onToggle}>{running ? 'Ⅱ Jeda' : '▶ Putar'}</button>
       </div>
       <p className="muted small">Ubah variabel, lalu amati perubahan fluks dan GGL induksi.</p>
@@ -26,7 +32,7 @@ export default function ControlPanel({ config, onChange, running, onToggle, onRe
               <span className="symbol">{item.symbol}</span><span>{item.label}</span>
               <b>{item.key === 'area' ? config[item.key].toFixed(3) : item.key === 'magneticField' ? config[item.key].toFixed(2) : config[item.key]} <small>{item.unit}</small></b>
             </span>
-            <input type="range" min={item.min} max={item.max} step={item.step} value={config[item.key]} onChange={(e) => onChange({ ...config, [item.key]: Number(e.target.value) })} aria-label={item.label} />
+            <input type="range" min={item.min} max={item.max} step={item.step} value={config[item.key]} onChange={(event) => onChange({ ...config, [item.key]: Number(event.target.value) })} aria-label={item.label} />
           </label>
         ))}
       </div>
